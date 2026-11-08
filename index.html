@@ -1,0 +1,694 @@
+<!doctype html>
+<html lang="es">
+<head>
+<!--
+  Cabaña Los Balcones — direct-booking site (v2, Nov 2026)
+  ───────────────────────────────────────────────────────────
+  One file + img/. No build step. Works from the file system and on GitHub Pages.
+
+  Expected images in img/ (3:2 landscape). For each NAME the page uses:
+    NAME-800.webp   (800×533)   — phones / gallery thumbnails
+    NAME-1400.webp  (1400×933)  — desktop / lightbox
+    NAME.jpg        (1536×1024) — original, fallback only
+  Names: exterior-palapa (hero), exterior-front, loft-lounge, living-room, living-room-fireplace,
+         living-room-tv, dining-room, kitchen, master-bedroom, bunk-room, bathroom
+  When you shoot the blue-hour exterior, export it as img/exterior-twilight-800.webp / -1400.webp / -2000.webp
+  and swap it into the HERO and the JSON-LD "image" list below.
+
+  Things to fill in later (search for TODO):
+    TODO-AIRBNB   Airbnb listing URL (const AIRBNB_URL)
+    TODO-OG       absolute URL of the hero for og:image once the domain exists
+    TODO-FAQ      policies / FAQ section (check-in, anticipo, mascotas, cancelación, CFDI)
+    TODO-PRICE    "desde $X MXN por noche" in the stat strip + sticky bar
+    TODO-REVIEWS  proof line + quotes once there are Airbnb reviews
+-->
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Cabaña Los Balcones · Cabaña con balcones al bosque en Mazamitla, Jalisco</title>
+<meta name="description" content="Cabañas en Mazamitla: Cabaña Los Balcones, nueva, para 12 personas, con balcones entre los pinos, chimenea con leña incluida y palapa con asador, a 5 minutos del centro.">
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta property="og:title" content="Cabaña Los Balcones · Mazamitla, Jalisco">
+<meta property="og:description" content="Balcones sobre el bosque de pinos, a 5 minutos de la plaza de Mazamitla. Cabaña nueva para 12 personas.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="img/exterior-palapa-1400.webp"><!-- TODO-OG: make absolute, e.g. https://cabanalosbalcones.com/img/exterior-palapa-1400.webp -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Figtree:wght@400;500;600&display=swap">
+<link rel="preload" as="image" href="img/exterior-palapa-1400.webp" media="(min-width: 761px)" fetchpriority="high">
+<link rel="preload" as="image" href="img/exterior-palapa-mobile-800.webp" media="(max-width: 760px)" fetchpriority="high">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LodgingBusiness",
+  "name": "Cabaña Los Balcones",
+  "description": "Cabaña nueva en Mazamitla, Jalisco, para 12 personas: 4 recámaras, 2 baños, 2 salas, balcones entre los pinos, chimenea con leña incluida y palapa con asador y fogatero, a 5 minutos del centro.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Paseo Vistas de Mazamitla, Lote 8, Fraccionamiento Vistas de Mazamitla",
+    "addressLocality": "Mazamitla",
+    "addressRegion": "Jalisco",
+    "postalCode": "49500",
+    "addressCountry": "MX"
+  },
+  "telephone": "+523337491657",
+  "image": [
+    "img/exterior-palapa-1400.webp","img/exterior-front-1400.webp","img/loft-lounge-1400.webp","img/living-room-1400.webp",
+    "img/living-room-fireplace-1400.webp","img/living-room-tv-1400.webp","img/dining-room-1400.webp","img/kitchen-1400.webp",
+    "img/master-bedroom-1400.webp","img/bunk-room-1400.webp","img/bathroom-1400.webp"
+  ],
+  "availableLanguage": ["es", "en"],
+  "amenityFeature": [
+    {"@type":"LocationFeatureSpecification","name":"Balcones con vista al bosque","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Chimenea de leña (leña incluida)","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Palapa con asador y fogatero","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Wi-Fi","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Cocina equipada","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Estacionamiento privado","value":true},
+    {"@type":"LocationFeatureSpecification","name":"2 televisiones","value":true}
+  ]
+}
+</script>
+
+<style>
+/* Layout: luxury-real-estate restraint — one full-bleed hero, hairline stat strip, editorial gallery, narrow serif copy, lots of air. One accent (forest green), one verb (Reservar). */
+:root{
+  --bg:#F3F1ED;
+  --ink:#1C1B18;
+  --accent:#2F4A3A;
+  --accent-2:#B6893F;
+  --muted:#6B6A64;
+  --hair:rgba(107,106,100,.3);
+  --surface:#FAF9F6;
+  --display:"Fraunces",Georgia,"Times New Roman",serif;
+  --body:"Figtree","Helvetica Neue",Arial,sans-serif;
+  --pad:clamp(72px,10vw,140px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1F1D1A;--ink:#ECE8E0;--accent:#7FB08E;--accent-2:#D2A75A;--muted:#A39E93;--hair:rgba(163,158,147,.3);--surface:#262320;color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1F1D1A;--ink:#ECE8E0;--accent:#7FB08E;--accent-2:#D2A75A;--muted:#A39E93;--hair:rgba(163,158,147,.3);--surface:#262320;color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.65;-webkit-font-smoothing:antialiased;padding-bottom:calc(64px + env(safe-area-inset-bottom,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+img{max-width:100%;display:block;height:auto}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:600;line-height:1.05;margin:0;text-wrap:balance;letter-spacing:-.012em;font-variation-settings:"opsz" 144}
+p{margin:0}
+button{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--accent-2);outline-offset:3px}
+[hidden]{display:none!important}
+
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.narrow{max-width:680px}
+.label{font-size:.72rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.section{padding-block:var(--pad)}
+.section + .section{padding-top:0}
+.section-head{display:grid;gap:14px;margin-bottom:clamp(32px,5vw,56px)}
+.section-head h2{font-size:clamp(2rem,4.2vw,3.2rem)}
+.copy p{color:var(--ink);max-width:65ch}
+.copy p + p{margin-top:1.1em}
+
+/* buttons: one verb, no gradients */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;min-height:48px;padding:0 26px;font-weight:600;font-size:1rem;text-decoration:none;border:1px solid var(--accent);background:var(--accent);color:#FFFFFF;cursor:pointer;transition:background .25s ease,color .25s ease;white-space:nowrap}
+.btn svg{width:18px;height:18px;flex:none}
+.btn:hover{background:transparent;color:var(--accent)}
+.btn-outline{background:transparent;color:var(--ink);border-color:var(--hair)}
+.btn-outline:hover{background:transparent;color:var(--accent);border-color:var(--accent)}
+.textlink{font-weight:500;text-decoration:none;border-bottom:1px solid var(--hair);padding-bottom:2px}
+.textlink:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ---------- nav ---------- */
+.nav{position:absolute;top:env(safe-area-inset-top,0px);left:0;right:0;z-index:20;color:#FBFAF6}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;min-height:68px;gap:16px}
+.brand{font-family:var(--display);font-weight:600;font-size:1.1rem;text-decoration:none;letter-spacing:.01em}
+.lang{display:inline-flex;gap:14px;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+.lang button{border:0;background:none;padding:6px 2px;cursor:pointer;opacity:.6;border-bottom:1px solid transparent;min-height:44px}
+.lang button[aria-pressed="true"]{opacity:1;border-bottom-color:currentColor}
+.lang .sep{opacity:.5;align-self:center}
+
+/* ---------- hero ---------- */
+.hero{position:relative;isolation:isolate;color:#FBFAF6;display:flex;align-items:flex-end;min-height:min(100svh,900px)}
+.hero-media{position:absolute;inset:0;z-index:-1;overflow:hidden}
+.hero-media img{width:100%;height:100%;object-fit:cover;object-position:center 58%}
+.hero-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,22,16,.12) 0%,rgba(14,22,16,0) 40%,rgba(14,22,16,.78) 100%)}
+.hero .wrap{padding-block:clamp(40px,6vw,72px);display:grid;gap:22px;width:100%}
+.hero .label{color:#E9DCC3}
+.hero h1{font-size:clamp(2.6rem,7vw,4.6rem);max-width:14ch}
+.hero .sub{font-family:var(--display);font-style:italic;font-weight:400;font-size:clamp(1.15rem,2.1vw,1.55rem);max-width:30ch;line-height:1.3;color:rgba(251,250,246,.92)}
+.hero-cta{display:flex;align-items:center;flex-wrap:wrap;gap:20px 28px;margin-top:6px}
+.hero .textlink{color:#FBFAF6;border-color:rgba(251,250,246,.5)}
+.hero .textlink:hover{color:#E9DCC3;border-color:#E9DCC3}
+.hero .btn{min-height:56px;border-color:var(--accent)}
+.hero .btn:hover{background:#FBFAF6;color:var(--accent);border-color:#FBFAF6}
+
+/* ---------- stat strip ---------- */
+.stats{border-top:1px solid var(--hair);border-bottom:1px solid var(--hair)}
+.stats ul{list-style:none;margin:0;padding-block:18px;display:flex;flex-wrap:wrap;gap:8px 0;justify-content:space-between}
+.stats li{display:flex;align-items:baseline;gap:8px;padding:4px 18px;font-variant-numeric:tabular-nums}
+.stats li b{font-family:var(--display);font-weight:600;font-size:1.35rem;line-height:1}
+.stats li span{font-size:.9rem;color:var(--muted)}
+.stats li.leña b{color:var(--accent)}
+
+/* ---------- gallery ---------- */
+.gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(0,1fr);gap:10px}
+.tile{position:relative;margin:0;padding:0;border:0;background:var(--surface);overflow:hidden;cursor:zoom-in;aspect-ratio:3/2;max-width:100%;width:100%;text-align:left}
+.tile.big{grid-column:span 2;grid-row:span 2;aspect-ratio:auto}
+.tile img{width:100%;height:100%;object-fit:cover;transition:opacity .4s ease}
+.tile:hover img{opacity:.92}
+.tile figcaption{position:absolute;left:0;right:0;bottom:0;padding:14px;font-size:.82rem;color:#FBFAF6;opacity:0;background:linear-gradient(180deg,transparent,rgba(14,22,16,.55));transition:opacity .4s ease}
+.tile:hover figcaption,.tile:focus-visible figcaption{opacity:1}
+.gallery-foot{display:flex;justify-content:center;margin-top:28px}
+
+/* ---------- experience ---------- */
+.hook{font-family:var(--display);font-size:clamp(1.35rem,2.4vw,1.85rem);line-height:1.35;font-weight:400;max-width:34ch;color:var(--ink)}
+.walk{display:grid;gap:36px;margin-top:clamp(36px,5vw,56px)}
+.walk article{display:grid;grid-template-columns:120px 1fr;gap:20px;border-top:1px solid var(--hair);padding-top:22px}
+.walk article .label{padding-top:4px}
+.walk article p{max-width:60ch}
+.pull{margin:clamp(40px,6vw,64px) 0 0;padding:0 0 0 22px;border-left:2px solid var(--accent-2);font-family:var(--display);font-style:italic;font-size:clamp(1.25rem,2.2vw,1.65rem);line-height:1.35;font-weight:400;max-width:34ch}
+
+/* ---------- amenities ---------- */
+.amen{display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.amen h3{font-size:1.05rem;font-family:var(--body);font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--hair)}
+.amen ul{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.amen li{display:flex;gap:12px;align-items:flex-start;min-width:0}
+.amen li::before{content:"";flex:none;width:6px;height:6px;border-radius:50%;background:var(--hair);margin-top:.62em}
+.amen li.hl::before{background:var(--accent-2)}
+.amen li.hl{font-weight:600}
+.amen small{display:block;color:var(--muted);font-size:.85rem;font-weight:400}
+
+/* ---------- location ---------- */
+.loc{display:grid;grid-template-columns:1.05fr .95fr;gap:clamp(40px,6vw,88px);align-items:start}
+.loc .copy{display:grid;gap:26px;min-width:0}
+.places{list-style:none;margin:0;padding:0;display:grid;gap:0}
+.places li{display:grid;grid-template-columns:1fr;gap:4px;padding:16px 0;border-top:1px solid var(--hair)}
+.places li:last-child{border-bottom:1px solid var(--hair)}
+.places b{font-family:var(--display);font-weight:600;font-size:1.15rem}
+.places span{color:var(--muted);font-size:.95rem}
+.addr{display:grid;gap:6px;padding-top:22px;border-top:1px solid var(--hair)}
+.addr address{font-style:normal;font-weight:500;line-height:1.5;user-select:all}
+.route{color:var(--muted);font-size:.95rem}
+.loc figure{margin:0;position:sticky;top:24px;max-width:100%}
+.loc figure img{width:100%;aspect-ratio:4/5;object-fit:cover}
+.loc figcaption{font-size:.82rem;color:var(--muted);margin-top:10px}
+
+/* ---------- reserve ---------- */
+.steps{counter-reset:s;list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.steps li{counter-increment:s;border-top:1px solid var(--hair);padding-top:18px;display:grid;gap:8px}
+.steps li::before{content:counter(s,decimal-leading-zero);font-family:var(--display);font-size:1.6rem;font-weight:600;color:var(--accent-2);line-height:1}
+.steps b{font-weight:600}
+.steps p{color:var(--muted);font-size:.95rem;max-width:36ch}
+.book{margin-top:clamp(40px,6vw,64px);border-top:1px solid var(--hair);padding-top:clamp(28px,4vw,40px);display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(28px,5vw,64px);align-items:start}
+.picker{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+.field{display:grid;gap:6px;min-width:0}
+.field label{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:600;color:var(--muted)}
+.field input,.field select{font:inherit;color:var(--ink);background:var(--surface);border:1px solid var(--hair);padding:0 12px;min-height:48px;width:100%;border-radius:0}
+.field input:focus,.field select:focus{border-color:var(--accent);outline:none}
+.book-actions{display:grid;gap:14px}
+.book-actions .btn{width:100%;min-height:56px}
+.contact-line{display:flex;flex-wrap:wrap;gap:8px 22px;align-items:baseline;font-size:.95rem;color:var(--muted)}
+.contact-line a.num{font-family:var(--display);font-weight:600;font-size:1.25rem;color:var(--ink);text-decoration:none;letter-spacing:.02em;font-variant-numeric:tabular-nums;user-select:all}
+.copy-btn{background:none;border:0;padding:0;font-size:.85rem;font-weight:600;color:var(--accent);cursor:pointer;border-bottom:1px solid var(--hair)}
+.note{font-size:.9rem;color:var(--muted);max-width:48ch}
+
+/* ---------- closing ---------- */
+.close{position:relative;isolation:isolate;color:#FBFAF6;min-height:min(70vh,640px);display:flex;align-items:center}
+.close-media{position:absolute;inset:0;z-index:-1;overflow:hidden}
+.close-media img{width:100%;height:100%;object-fit:cover;object-position:center 40%}
+.close-media::after{content:"";position:absolute;inset:0;background:rgba(14,22,16,.58)}
+.close .wrap{padding-block:clamp(56px,8vw,96px);display:grid;gap:22px;justify-items:start}
+.close h2{font-size:clamp(2rem,5vw,3.6rem);max-width:16ch}
+.close .btn:hover{background:#FBFAF6;color:var(--accent);border-color:#FBFAF6}
+.close .links{display:flex;flex-wrap:wrap;gap:16px 28px;align-items:center}
+.close .textlink{color:#FBFAF6;border-color:rgba(251,250,246,.5)}
+
+/* ---------- footer ---------- */
+footer{padding-block:32px;border-top:1px solid var(--hair);color:var(--muted);font-size:.88rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px 28px;align-items:center}
+footer .lang{color:var(--ink)}
+footer a{text-decoration:none}
+
+/* ---------- sticky CTA (mobile bar / desktop pill) ---------- */
+.sticky{position:fixed;left:0;right:0;bottom:0;z-index:30;display:none;gap:10px;padding:8px max(16px,env(safe-area-inset-right,0px)) calc(8px + env(safe-area-inset-bottom,0px)) max(16px,env(safe-area-inset-left,0px));background:var(--bg);border-top:1px solid var(--hair);transform:translateY(110%);transition:transform .4s ease}
+.sticky.on{transform:none}
+.sticky .btn{flex:1;min-height:48px}
+.sticky .btn-outline{flex:0 0 auto;padding:0 18px}
+.pill{position:fixed;right:calc(20px + env(safe-area-inset-right,0px));bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:30;display:none;min-height:48px;transform:translateY(140%);transition:transform .4s ease}
+.pill.on{transform:none}
+
+/* ---------- lightbox ---------- */
+.lightbox{position:fixed;inset:0;z-index:50;background:rgba(14,18,15,.95);display:grid;grid-template-rows:auto 1fr auto;color:#FBFAF6;padding:calc(12px + env(safe-area-inset-top,0px)) max(12px,env(safe-area-inset-right,0px)) calc(12px + env(safe-area-inset-bottom,0px)) max(12px,env(safe-area-inset-left,0px))}
+.lb-top{display:flex;justify-content:space-between;align-items:center}
+.lb-top span{font-size:.85rem;letter-spacing:.1em;color:rgba(251,250,246,.7);font-variant-numeric:tabular-nums}
+.lb-stage{position:relative;display:grid;place-items:center;min-height:0}
+.lb-stage img{max-width:100%;max-height:100%;object-fit:contain}
+.lb-cap{text-align:center;padding-top:12px;font-family:var(--display);font-style:italic;font-size:1.1rem;max-width:60ch;margin:0 auto}
+.lb-btn{border:1px solid rgba(251,250,246,.35);background:rgba(14,18,15,.5);color:#FBFAF6;width:48px;height:48px;display:grid;place-items:center;cursor:pointer}
+.lb-btn svg{width:20px;height:20px}
+.lb-nav{position:absolute;top:50%;transform:translateY(-50%)}
+.lb-prev{left:0}.lb-next{right:0}
+
+/* ---------- reveal on scroll (JS adds .pre only to off-screen blocks) ---------- */
+.reveal.pre{opacity:0;transform:translateY(8px)}
+.reveal.in{opacity:1;transform:none;transition:opacity .6s ease,transform .6s ease}
+
+/* ---------- responsive ---------- */
+@media (max-width: 960px){
+  .amen{grid-template-columns:1fr 1fr}
+  .loc{grid-template-columns:1fr}
+  .loc figure{position:static;order:-1}
+  .loc figure img{aspect-ratio:3/2}
+  .book{grid-template-columns:1fr}
+  .steps{grid-template-columns:1fr}
+}
+@media (max-width: 760px){
+  body{font-size:16px}
+  /* phone hero: portrait photo on top, text on the page background below it */
+  .hero{min-height:0;flex-direction:column;align-items:stretch;color:var(--ink)}
+  .hero-media{position:relative;inset:auto;z-index:0;width:100%;aspect-ratio:4/5;max-height:72svh}
+  .hero-media img{object-position:center}
+  .hero-media::after{background:linear-gradient(180deg,rgba(14,22,16,.35) 0%,rgba(14,22,16,0) 32%)}
+  .hero .wrap{padding-block:26px 34px;gap:14px}
+  .hero .label{color:var(--muted)}
+  .hero h1{font-size:clamp(2.3rem,11vw,3rem)}
+  .hero .sub{color:var(--ink);max-width:none;font-size:1.2rem}
+  .hero-cta{margin-top:10px;gap:18px}
+  .hero .btn{width:100%;min-height:56px}
+  .hero .btn:hover{background:transparent;color:var(--accent);border-color:var(--accent)}
+  .hero .textlink{color:var(--ink);border-color:var(--hair)}
+  .hero .textlink:hover{color:var(--accent);border-color:var(--accent)}
+  /* phone stat strip: 2 clean columns, leña on its own row */
+  .stats ul{display:grid;grid-template-columns:1fr 1fr;gap:0;padding-block:0}
+  .stats li{padding:14px 12px;border-bottom:1px solid var(--hair);width:auto}
+  .stats li:nth-child(odd){border-right:1px solid var(--hair)}
+  .stats li.leña{grid-column:1 / -1;border-right:0;border-bottom:0;justify-content:center;background:var(--surface)}
+  .stats li.leña b{font-size:1.1rem;letter-spacing:.02em}
+  .gallery{grid-template-columns:1fr 1fr}
+  .tile.big{grid-column:span 2;grid-row:auto;aspect-ratio:3/2}
+  .walk article{grid-template-columns:1fr;gap:6px}
+  .amen{grid-template-columns:1fr;gap:28px}
+  .picker{grid-template-columns:1fr 1fr}
+  .picker .field:last-child{grid-column:span 2}
+  .sticky{display:flex}
+  .pill{display:none!important}
+}
+@media (min-width: 761px){ .pill{display:inline-flex} }
+@media (prefers-reduced-motion: reduce){
+  html{scroll-behavior:auto}
+  .reveal.pre{opacity:1;transform:none}
+  .reveal.in,.sticky,.pill,.tile img,.tile figcaption,.btn{transition:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ===== NAV (over the hero) ===== -->
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top">Cabaña Los Balcones</a>
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="es" aria-pressed="true">Español</button>
+      <span class="sep" aria-hidden="true">|</span>
+      <button type="button" data-lang="en" aria-pressed="false">English</button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ===== 1. HERO ===== -->
+<section class="hero" id="hero">
+  <div class="hero-media">
+    <picture>
+      <source media="(max-width: 760px)" srcset="img/exterior-palapa-mobile-800.webp" width="819" height="1024">
+      <img src="img/exterior-palapa-1400.webp" srcset="img/exterior-palapa-800.webp 800w, img/exterior-palapa-1400.webp 1400w" sizes="100vw" width="1400" height="933" fetchpriority="high" decoding="async"
+           alt="Cabaña Los Balcones entre los pinos, con la palapa y el asador al frente" data-es-alt="Cabaña Los Balcones entre los pinos, con la palapa y el asador al frente" data-en-alt="Cabaña Los Balcones among the pines, with the covered patio and grill in front">
+    </picture>
+  </div>
+  <div class="wrap">
+    <p class="label" data-es="Mazamitla · Jalisco · Fracc. Vistas de Mazamitla" data-en="Mazamitla · Jalisco · Vistas de Mazamitla">Mazamitla · Jalisco · Fracc. Vistas de Mazamitla</p>
+    <h1>Cabaña Los Balcones</h1>
+    <p class="sub" data-es="Balcones sobre el bosque de pinos, a 5 minutos de la plaza de Mazamitla." data-en="Balconies over the pine forest, five minutes from Mazamitla's plaza.">Balcones sobre el bosque de pinos, a 5 minutos de la plaza de Mazamitla.</p>
+    <div class="hero-cta">
+      <a class="btn js-wa" href="#reservar" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 1.8a8.2 8.2 0 1 1-4.2 15.3l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 0 1 12 3.8zm-3.1 4.4c-.2 0-.5 0-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.2 5 4.4 2.5 1 3 .8 3.5.8.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3l-2-1c-.3-.1-.5-.2-.7.1l-1 1.2c-.2.2-.4.2-.6.1a6.7 6.7 0 0 1-3.4-2.9c-.2-.3 0-.5.2-.6l.5-.6.3-.5v-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6z"/></svg>
+        <span data-es="Reservar por WhatsApp" data-en="Reserve on WhatsApp">Reservar por WhatsApp</span>
+      </a>
+      <a class="textlink js-airbnb" href="#" target="_blank" rel="noopener" data-es="Ver en Airbnb ↗" data-en="View on Airbnb ↗">Ver en Airbnb ↗</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 2. STAT STRIP ===== -->
+<section class="stats" aria-label="Datos">
+  <div class="wrap">
+    <ul>
+      <li><b>12</b><span data-es="huéspedes" data-en="guests">huéspedes</span></li>
+      <li><b>4</b><span data-es="recámaras" data-en="bedrooms">recámaras</span></li>
+      <li><b>2</b><span data-es="baños completos" data-en="full bathrooms">baños completos</span></li>
+      <li><b>5 min</b><span data-es="al centro" data-en="to downtown">al centro</span></li>
+      <li class="leña"><b data-es="Leña incluida" data-en="Firewood included">Leña incluida</b></li>
+      <!-- TODO-PRICE: <li><b>desde $X MXN</b><span data-es="por noche" data-en="per night">por noche</span></li> -->
+    </ul>
+  </div>
+</section>
+
+<!-- TODO-REVIEWS: proof line goes here as plain text, e.g. "★ 4.9 · 32 reseñas · Superhost en Airbnb" (no Airbnb logo/badge images) -->
+
+<!-- ===== 3. GALLERY ===== -->
+<section class="section" id="fotos">
+  <div class="wrap">
+    <div class="gallery" id="gallery"></div>
+    <div class="gallery-foot">
+      <button type="button" class="btn btn-outline" id="see-all"><span data-es="Ver las 11 fotos" data-en="See all 11 photos">Ver las 11 fotos</span></button>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 4. LA EXPERIENCIA ===== -->
+<section class="section" id="experiencia">
+  <div class="wrap narrow reveal">
+    <p class="label" data-es="La experiencia" data-en="The experience">La experiencia</p>
+    <p class="hook" style="margin-top:14px"
+       data-es="A 2,250 metros, el aire huele a pino y a humo de leña. Desde el balcón tocas las ramas; abajo, el bosque; a cinco minutos, la plaza de Mazamitla."
+       data-en="At 2,250 meters the air smells of pine and woodsmoke. From the balcony you can touch the branches; below, the forest; five minutes away, Mazamitla's plaza.">A 2,250 metros, el aire huele a pino y a humo de leña. Desde el balcón tocas las ramas; abajo, el bosque; a cinco minutos, la plaza de Mazamitla.</p>
+
+    <div class="walk">
+      <article>
+        <p class="label" data-es="Mañana" data-en="Morning">Mañana</p>
+        <p data-es="El canto de los pájaros entra por la ventana antes que la alarma. Café en el balcón mientras la neblina se levanta de entre los pinos, y los niños ya corriendo afuera: hay terreno de sobra para que jueguen."
+           data-en="Birdsong comes through the window before the alarm does. Coffee on the balcony while the fog lifts off the pines, and the kids already running outside: there's plenty of ground for them to play.">El canto de los pájaros entra por la ventana antes que la alarma. Café en el balcón mientras la neblina se levanta de entre los pinos, y los niños ya corriendo afuera: hay terreno de sobra para que jueguen.</p>
+      </article>
+      <article>
+        <p class="label" data-es="Tarde" data-en="Afternoon">Tarde</p>
+        <p data-es="El pueblo está a cinco minutos: la plaza, la parroquia, un rompope en el centro. De regreso, carne y carbón para el asador. La cocina está equipada para cocinar para doce sin pelearse por el espacio."
+           data-en="Town is five minutes away: the plaza, the parish church, a rompope downtown. On the way back, meat and charcoal for the grill. The kitchen is equipped to cook for twelve without fighting for counter space.">El pueblo está a cinco minutos: la plaza, la parroquia, un rompope en el centro. De regreso, carne y carbón para el asador. La cocina está equipada para cocinar para doce sin pelearse por el espacio.</p>
+      </article>
+      <article>
+        <p class="label" data-es="Noche" data-en="Evening">Noche</p>
+        <p data-es="Carne asada en la palapa y el fogatero encendido bajo las estrellas. Adentro, la chimenea con leña incluida, dos salas para que la familia se reparta sin que nadie quede fuera, y dos televisiones para cuando ganen los niños."
+           data-en="Carne asada under the palapa and the fire pit lit beneath the stars. Inside, the fireplace with firewood included, two living rooms so the whole family fits without anyone left out, and two TVs for when the kids win the argument.">Carne asada en la palapa y el fogatero encendido bajo las estrellas. Adentro, la chimenea con leña incluida, dos salas para que la familia se reparta sin que nadie quede fuera, y dos televisiones para cuando ganen los niños.</p>
+      </article>
+    </div>
+
+    <p class="pull" data-es="Los Balcones no es solo una cabaña: es el lugar donde tu familia se desconecta, respira y vuelve a estar junta."
+       data-en="Los Balcones isn't just a cabin: it's the place where your family unplugs, breathes, and comes back together.">Los Balcones no es solo una cabaña: es el lugar donde tu familia se desconecta, respira y vuelve a estar junta.</p>
+  </div>
+</section>
+
+<!-- ===== 5. AMENIDADES ===== -->
+<section class="section" id="amenidades">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <p class="label" data-es="Amenidades" data-en="Amenities">Amenidades</p>
+      <h2 data-es="Lo que ya está ahí cuando llegas" data-en="What's already there when you arrive">Lo que ya está ahí cuando llegas</h2>
+    </div>
+    <div class="amen">
+      <div>
+        <h3 data-es="Dentro" data-en="Inside">Dentro</h3>
+        <ul>
+          <li class="hl"><span data-es="Chimenea de leña — leña incluida" data-en="Wood-burning fireplace — firewood included">Chimenea de leña — leña incluida</span></li>
+          <li><span data-es="4 recámaras: principal con cama king, recámara con literas" data-en="4 bedrooms: master with king bed, bunk-bed room">4 recámaras: principal con cama king, recámara con literas</span></li>
+          <li><span data-es="2 baños completos" data-en="2 full bathrooms">2 baños completos</span></li>
+          <li><span data-es="2 salas amplias, una en planta alta" data-en="2 spacious living rooms, one upstairs">2 salas amplias, una en planta alta</span></li>
+          <li><span data-es="Cocina equipada y comedor para 8" data-en="Equipped kitchen and dining table for 8">Cocina equipada y comedor para 8</span></li>
+          <li><span data-es="2 televisiones" data-en="2 TVs">2 televisiones</span></li>
+          <li><span data-es="Internet Wi-Fi" data-en="Wi-Fi internet">Internet Wi-Fi</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3 data-es="Afuera" data-en="Outside">Afuera</h3>
+        <ul>
+          <li class="hl"><span data-es="Balcones entre las ramas de los pinos" data-en="Balconies among the pine branches">Balcones entre las ramas de los pinos</span></li>
+          <li class="hl"><span data-es="Palapa con asador y fogatero" data-en="Covered patio with grill and fire pit">Palapa con asador y fogatero</span></li>
+          <li><span data-es="Terreno amplio para que los niños jueguen" data-en="Plenty of open ground for kids to play">Terreno amplio para que los niños jueguen</span></li>
+          <li><span data-es="Estacionamiento privado amplio" data-en="Ample private parking">Estacionamiento privado amplio</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3 data-es="Básicos" data-en="Basics">Básicos</h3>
+        <ul>
+          <li><span data-es="Hasta 12 huéspedes" data-en="Up to 12 guests">Hasta 12 huéspedes</span></li>
+          <li><span data-es="Cabaña nueva, toda la casa para tu grupo" data-en="Brand-new cabin, the whole house for your group">Cabaña nueva, toda la casa para tu grupo</span></li>
+          <li><span data-es="A 5 minutos del centro de Mazamitla" data-en="5 minutes from downtown Mazamitla">A 5 minutos del centro de Mazamitla</span></li>
+          <li><span data-es="Reserva directa por WhatsApp o teléfono" data-en="Book directly by WhatsApp or phone">Reserva directa por WhatsApp o teléfono</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TODO-REVIEWS: "Lo que dicen" section (3–5 verbatim quotes, first name + city, serif pull-quote style) + a Reservar button under it -->
+
+<!-- ===== 6. UBICACIÓN Y QUÉ HACER ===== -->
+<section class="section" id="ubicacion">
+  <div class="wrap loc reveal">
+    <div class="copy">
+      <div class="section-head" style="margin-bottom:0">
+        <p class="label" data-es="Ubicación y qué hacer" data-en="Location & things to do">Ubicación y qué hacer</p>
+        <h2 data-es="Mazamitla en 48 horas" data-en="Mazamitla in 48 hours">Mazamitla en 48 horas</h2>
+        <p data-es="Pueblo Mágico en la sierra del sur de Jalisco, a 2,250 metros, entre bosques de pino y clima fresco todo el año. La cabaña está a cinco minutos del centro."
+           data-en="A Pueblo Mágico in the mountains of southern Jalisco, at 2,250 meters, surrounded by pine forest and cool weather year-round. The cabin is five minutes from downtown.">Pueblo Mágico en la sierra del sur de Jalisco, a 2,250 metros, entre bosques de pino y clima fresco todo el año. La cabaña está a cinco minutos del centro.</p>
+      </div>
+      <ul class="places">
+        <li><b data-es="La plaza y la Parroquia de San Cristóbal" data-en="The plaza and Parroquia de San Cristóbal">La plaza y la Parroquia de San Cristóbal</b><span data-es="El centro, sus portales y sus calles empedradas. A 5 minutos en coche." data-en="Downtown, its arcades and cobblestone streets. 5 minutes by car.">El centro, sus portales y sus calles empedradas. A 5 minutos en coche.</span></li>
+        <li><b data-es="Cascada El Salto" data-en="El Salto waterfall">Cascada El Salto</b><span data-es="Por la zona de Los Cazos, entre el bosque." data-en="Through the Los Cazos area, in the forest.">Por la zona de Los Cazos, entre el bosque.</span></li>
+        <li><b data-es="Mirador El Tabardillo" data-en="El Tabardillo lookout">Mirador El Tabardillo</b><span data-es="Vista del pueblo y de toda la sierra." data-en="View over the town and the whole range.">Vista del pueblo y de toda la sierra.</span></li>
+        <li><b data-es="Rompope y dulces de la región" data-en="Rompope and regional sweets">Rompope y dulces de la región</b><span data-es="Para llevar de regreso a Guadalajara." data-en="To take back to Guadalajara.">Para llevar de regreso a Guadalajara.</span></li>
+      </ul>
+      <p class="route" data-es="Cómo llegar desde Guadalajara: López Mateos → autopista 15D → Tuxcueca → Mazamitla, aprox. 2 h en coche."
+         data-en="Getting here from Guadalajara: López Mateos → highway 15D → Tuxcueca → Mazamitla, about 2 h by car.">Cómo llegar desde Guadalajara: López Mateos → autopista 15D → Tuxcueca → Mazamitla, aprox. 2 h en coche.</p>
+      <p class="route" data-es="En invierno: chimenea encendida y, a veces, nieve. En temporada de lluvias (junio a octubre): neblina por la mañana y el bosque en su verde más intenso. Diciembre y puentes se reservan con semanas de anticipación."
+         data-en="In winter: the fireplace lit and, some years, snow. In the rainy season (June to October): morning fog and the forest at its greenest. December and long weekends book up weeks ahead.">En invierno: chimenea encendida y, a veces, nieve. En temporada de lluvias (junio a octubre): neblina por la mañana y el bosque en su verde más intenso. Diciembre y puentes se reservan con semanas de anticipación.</p>
+      <div class="addr">
+        <p class="label" data-es="Dirección" data-en="Address">Dirección</p>
+        <address>Paseo Vistas de Mazamitla, Lote 8<br>Fracc. Vistas de Mazamitla, Mazamitla, Jalisco · C.P. 49500</address>
+        <div><a class="textlink" href="https://www.google.com/maps/search/?api=1&query=Paseo+Vistas+de+Mazamitla+Lote+8%2C+Fraccionamiento+Vistas+de+Mazamitla%2C+Mazamitla%2C+Jalisco+49500" target="_blank" rel="noopener" data-es="Abrir en Google Maps ↗" data-en="Open in Google Maps ↗">Abrir en Google Maps ↗</a></div>
+      </div>
+    </div>
+    <figure>
+      <img src="img/exterior-front-1400.webp" srcset="img/exterior-front-800.webp 800w, img/exterior-front-1400.webp 1400w" sizes="(max-width:960px) 100vw, 45vw" width="1400" height="933" loading="lazy" decoding="async"
+           alt="Fachada de la cabaña con su chimenea de ladrillo, rodeada de pinos" data-es-alt="Fachada de la cabaña con su chimenea de ladrillo, rodeada de pinos" data-en-alt="Front of the cabin with its brick chimney, surrounded by pines">
+      <figcaption data-es="La cabaña desde la entrada del terreno, al atardecer." data-en="The cabin from the property entrance, at sunset.">La cabaña desde la entrada del terreno, al atardecer.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ===== 7. CÓMO RESERVAR ===== -->
+<section class="section" id="reservar">
+  <div class="wrap reveal">
+    <div class="section-head">
+      <p class="label" data-es="Reserva e informes" data-en="Bookings & info">Reserva e informes</p>
+      <h2 data-es="Tres pasos y ya tienen fin de semana" data-en="Three steps and the weekend is yours">Tres pasos y ya tienen fin de semana</h2>
+    </div>
+    <ol class="steps">
+      <li><b data-es="Escríbenos por WhatsApp" data-en="Message us on WhatsApp">Escríbenos por WhatsApp</b><p data-es="Con tus fechas y cuántos vienen. Si prefieres, llámanos." data-en="With your dates and how many are coming. Or call us, if you'd rather.">Con tus fechas y cuántos vienen. Si prefieres, llámanos.</p></li>
+      <li><b data-es="Te confirmamos disponibilidad y precio" data-en="We confirm availability and price">Te confirmamos disponibilidad y precio</b><p data-es="Toda la cabaña es para tu grupo; el precio es por noche por cabaña." data-en="The whole cabin is yours; the price is per night, per cabin.">Toda la cabaña es para tu grupo; el precio es por noche por cabaña.</p></li>
+      <li><b data-es="Recibe tu confirmación e indicaciones" data-en="Get your confirmation and directions">Recibe tu confirmación e indicaciones</b><p data-es="Cómo llegar al terreno y todo lo que necesitas saber antes de salir." data-en="How to find the property and everything you need to know before you leave.">Cómo llegar al terreno y todo lo que necesitas saber antes de salir.</p></li>
+    </ol>
+    <!-- TODO-FAQ: policies list goes here (check-in/out, anticipo, mascotas, niños, fiestas, cancelación, CFDI, acceso, qué llevar) -->
+
+    <div class="book">
+      <div>
+        <p class="label" style="margin-bottom:14px" data-es="Arma tu mensaje" data-en="Build your message">Arma tu mensaje</p>
+        <div class="picker">
+          <div class="field"><label for="d-in" data-es="Llegada" data-en="Check-in">Llegada</label><input type="date" id="d-in" name="checkin"></div>
+          <div class="field"><label for="d-out" data-es="Salida" data-en="Check-out">Salida</label><input type="date" id="d-out" name="checkout"></div>
+          <div class="field"><label for="guests" data-es="Personas" data-en="Guests">Personas</label>
+            <select id="guests" name="guests"><option value="">—</option><option>2</option><option>4</option><option>6</option><option>8</option><option>10</option><option>12</option></select></div>
+        </div>
+        <p class="note" style="margin-top:12px" data-es="Opcional. Si los llenas, el mensaje de WhatsApp sale con tus fechas y número de personas." data-en="Optional. If you fill these in, the WhatsApp message opens with your dates and guest count.">Opcional. Si los llenas, el mensaje de WhatsApp sale con tus fechas y número de personas.</p>
+      </div>
+      <div class="book-actions">
+        <a class="btn js-wa" href="#" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 1.8a8.2 8.2 0 1 1-4.2 15.3l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 0 1 12 3.8zm-3.1 4.4c-.2 0-.5 0-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.2 5 4.4 2.5 1 3 .8 3.5.8.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3l-2-1c-.3-.1-.5-.2-.7.1l-1 1.2c-.2.2-.4.2-.6.1a6.7 6.7 0 0 1-3.4-2.9c-.2-.3 0-.5.2-.6l.5-.6.3-.5v-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6z"/></svg>
+          <span data-es="Reservar por WhatsApp" data-en="Reserve on WhatsApp">Reservar por WhatsApp</span>
+        </a>
+        <div class="contact-line">
+          <span data-es="O llámanos:" data-en="Or call us:">O llámanos:</span>
+          <a class="num" href="tel:+523337491657">+52 33 3749 1657</a>
+          <button type="button" class="copy-btn" id="copy-phone" data-es="Copiar" data-en="Copy">Copiar</button>
+        </div>
+        <a class="btn btn-outline js-airbnb" href="#" target="_blank" rel="noopener"><span data-es="Ver en Airbnb" data-en="View on Airbnb">Ver en Airbnb</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===== 8. CIERRE ===== -->
+<section class="close" id="cierre">
+  <div class="close-media">
+    <img src="img/living-room-fireplace-1400.webp" srcset="img/living-room-fireplace-800.webp 800w, img/living-room-fireplace-1400.webp 1400w" sizes="100vw" width="1400" height="933" loading="lazy" decoding="async"
+         alt="La sala principal con la chimenea de ladrillo" data-es-alt="La sala principal con la chimenea de ladrillo" data-en-alt="The main living room with the brick fireplace">
+  </div>
+  <div class="wrap">
+    <h2 data-es="Despierta entre pinos. Duerme junto a la chimenea." data-en="Wake up among the pines. Fall asleep by the fire.">Despierta entre pinos. Duerme junto a la chimenea.</h2>
+    <a class="btn js-wa" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5.1-1.3A10 10 0 1 0 12 2zm0 1.8a8.2 8.2 0 1 1-4.2 15.3l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 0 1 12 3.8zm-3.1 4.4c-.2 0-.5 0-.7.3-.3.3-1 1-1 2.4s1 2.8 1.2 3c.1.2 2 3.2 5 4.4 2.5 1 3 .8 3.5.8.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.4-.1-.1-.3-.2-.6-.3l-2-1c-.3-.1-.5-.2-.7.1l-1 1.2c-.2.2-.4.2-.6.1a6.7 6.7 0 0 1-3.4-2.9c-.2-.3 0-.5.2-.6l.5-.6.3-.5v-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6z"/></svg>
+      <span data-es="Reservar por WhatsApp" data-en="Reserve on WhatsApp">Reservar por WhatsApp</span>
+    </a>
+    <div class="links">
+      <a class="textlink" href="tel:+523337491657">+52 33 3749 1657</a>
+      <a class="textlink js-airbnb" href="#" target="_blank" rel="noopener" data-es="Ver en Airbnb ↗" data-en="View on Airbnb ↗">Ver en Airbnb ↗</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Cabaña Los Balcones · Fracc. Vistas de Mazamitla · Mazamitla, Jalisco · <a href="tel:+523337491657">+52 33 3749 1657</a> · © 2026</span>
+    <div class="lang" role="group" aria-label="Idioma / Language">
+      <button type="button" data-lang="es" aria-pressed="true">Español</button>
+      <span class="sep" aria-hidden="true">|</span>
+      <button type="button" data-lang="en" aria-pressed="false">English</button>
+    </div>
+  </div>
+</footer>
+
+<!-- sticky CTA: full-width bar on mobile, pill on desktop; both appear once the hero scrolls out -->
+<div class="sticky" id="sticky">
+  <a class="btn js-wa" href="#" target="_blank" rel="noopener"><span data-es="Reservar por WhatsApp" data-en="Reserve on WhatsApp">Reservar por WhatsApp</span></a>
+  <a class="btn btn-outline" href="tel:+523337491657" aria-label="Llamar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z"/></svg></a>
+</div>
+<a class="btn pill js-wa" id="pill" href="#" target="_blank" rel="noopener"><span data-es="Reservar por WhatsApp" data-en="Reserve on WhatsApp">Reservar por WhatsApp</span></a>
+
+<!-- lightbox -->
+<div class="lightbox" id="lightbox" hidden role="dialog" aria-modal="true" aria-label="Fotos">
+  <div class="lb-top">
+    <span id="lb-count">1 / 11</span>
+    <button type="button" class="lb-btn" id="lb-close" aria-label="Cerrar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+  </div>
+  <div class="lb-stage">
+    <img id="lb-img" src="" alt="" width="1400" height="933">
+    <button type="button" class="lb-btn lb-nav lb-prev" id="lb-prev" aria-label="Anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <button type="button" class="lb-btn lb-nav lb-next" id="lb-next" aria-label="Siguiente"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>
+  </div>
+  <p class="lb-cap" id="lb-cap"></p>
+</div>
+
+<script>
+/* ===== SETTINGS ===== */
+const WA_NUMBER  = "523337491657";   // digits only, no +
+const AIRBNB_URL = "";               // TODO-AIRBNB: paste the listing URL, e.g. "https://www.airbnb.mx/rooms/123456"
+
+/* ===== PHOTOS: name → captions (what the photo can't show). First 8 appear on the page; all 11 in the lightbox. ===== */
+const PHOTOS = [
+  ["exterior-palapa",       "La palapa con asador y fogatero, al atardecer. Los pinos son los del terreno.", "The covered patio with grill and fire pit, at sunset. The pines are on the property."],
+  ["loft-lounge",           "Segunda sala, planta alta. La puerta da al balcón entre las ramas.", "Second living room, upstairs. The door opens onto the balcony among the branches."],
+  ["living-room-fireplace", "Sala principal con la chimenea de ladrillo. La leña va por nuestra cuenta.", "Main living room with the brick fireplace. Firewood is on us."],
+  ["master-bedroom",        "Recámara principal, cama king, cabecera tallada en madera.", "Master bedroom, king bed, hand-carved wooden headboard."],
+  ["dining-room",           "Comedor para ocho, con la cocina y la entrada a un lado.", "Dining table for eight, with the kitchen and the front door beside it."],
+  ["kitchen",               "Cocina equipada: estufa de gas de seis quemadores, refrigerador, microondas, cafetera.", "Equipped kitchen: six-burner gas range, fridge, microwave, coffee maker."],
+  ["bunk-room",             "Recámara con literas, pensada para los niños.", "Bunk-bed room, made for the kids."],
+  ["exterior-front",        "La cabaña desde la entrada del terreno; la chimenea de ladrillo marca la sala.", "The cabin from the property entrance; the brick chimney marks the living room."],
+  ["living-room",           "La sala principal desde la escalera; la segunda sala queda arriba.", "The main living room from the stairs; the second lounge is above."],
+  ["living-room-tv",        "Doble altura sobre la chimenea, con una de las dos televisiones.", "Double-height space over the fireplace, with one of the two TVs."],
+  ["bathroom",              "Uno de los dos baños completos, con regadera.", "One of the two full bathrooms, with shower."]
+];
+
+/* ===== LANGUAGE (data-es / data-en on every text node) ===== */
+let lang = "es";
+try { const s = localStorage.getItem("lb-lang"); if (s === "en" || s === "es") lang = s; } catch (e) {}
+
+function setLang(l) {
+  lang = l;
+  document.documentElement.lang = l;
+  document.querySelectorAll("[data-es]").forEach(el => { const t = el.dataset[l]; if (t !== undefined) el.textContent = t; });
+  document.querySelectorAll("[data-es-alt]").forEach(el => { el.alt = el.dataset[l + "Alt"] || ""; });
+  document.querySelectorAll(".lang button").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.lang === l)));
+  document.getElementById("lb-close").setAttribute("aria-label", l === "es" ? "Cerrar" : "Close");
+  document.getElementById("lb-prev").setAttribute("aria-label",  l === "es" ? "Anterior" : "Previous");
+  document.getElementById("lb-next").setAttribute("aria-label",  l === "es" ? "Siguiente" : "Next");
+  renderGallery();
+  if (!lightbox.hidden) showSlide(current);
+  refreshWa();
+  try { localStorage.setItem("lb-lang", l); } catch (e) {}
+}
+document.querySelectorAll(".lang button").forEach(b => b.addEventListener("click", () => setLang(b.dataset.lang)));
+
+/* ===== WHATSAPP (built at click time, with dates/guests if given) ===== */
+function fmt(d) { if (!d) return ""; const [y, m, dd] = d.split("-"); return `${dd}/${m}/${y}`; }
+function waMessage() {
+  const ci = fmt(document.getElementById("d-in").value), co = fmt(document.getElementById("d-out").value), g = document.getElementById("guests").value;
+  if (lang === "en") {
+    return (ci && co ? `Hi, I'm interested in Cabaña Los Balcones from ${ci} to ${co}${g ? ` for ${g} guests` : ""}. Is it available?`
+                     : `Hi, I'm interested in Cabaña Los Balcones in Mazamitla${g ? ` for ${g} guests` : ""}. Could you share availability and prices?`);
+  }
+  return (ci && co ? `Hola, me interesa Cabaña Los Balcones del ${ci} al ${co}${g ? ` para ${g} personas` : ""}. ¿Tienen disponibilidad?`
+                   : `Hola, me interesa Cabaña Los Balcones en Mazamitla${g ? ` para ${g} personas` : ""}. ¿Me pueden dar disponibilidad y precios?`);
+}
+function waUrl() { return "https://wa.me/" + WA_NUMBER + "?text=" + encodeURIComponent(waMessage()); }
+function refreshWa() { document.querySelectorAll(".js-wa").forEach(a => a.href = waUrl()); }
+document.querySelectorAll(".js-wa").forEach(a => a.addEventListener("click", () => { a.href = waUrl(); }));
+["d-in", "d-out", "guests"].forEach(id => document.getElementById(id).addEventListener("change", refreshWa));
+(function () { const t = new Date(); const iso = t.toISOString().slice(0, 10); document.getElementById("d-in").min = iso; document.getElementById("d-out").min = iso;
+  document.getElementById("d-in").addEventListener("change", e => { document.getElementById("d-out").min = e.target.value || iso; }); })();
+
+/* ===== AIRBNB ===== */
+document.querySelectorAll(".js-airbnb").forEach(a => a.href = AIRBNB_URL || "https://www.airbnb.mx/");
+
+/* ===== GALLERY (8 on the page) + LIGHTBOX (all 11) ===== */
+function renderGallery() {
+  const g = document.getElementById("gallery");
+  g.innerHTML = PHOTOS.slice(0, 8).map(([n, es, en], i) => {
+    const cap = lang === "es" ? es : en;
+    return `<button type="button" class="tile${i === 0 ? " big" : ""}" data-i="${i}" aria-label="${cap}">
+      <img src="img/${n}-800.webp" srcset="img/${n}-800.webp 800w, img/${n}-1400.webp 1400w" sizes="${i === 0 ? "(max-width:760px) 100vw, 50vw" : "(max-width:760px) 50vw, 25vw"}" width="800" height="533" loading="${i < 3 ? "eager" : "lazy"}" decoding="async" alt="${cap}">
+      <figcaption>${cap}</figcaption></button>`; }).join("");
+  g.querySelectorAll(".tile").forEach(b => b.addEventListener("click", () => openLightbox(+b.dataset.i)));
+}
+let current = 0;
+const lightbox = document.getElementById("lightbox");
+function showSlide(i) {
+  current = (i + PHOTOS.length) % PHOTOS.length;
+  const [n, es, en] = PHOTOS[current]; const cap = lang === "es" ? es : en;
+  const img = document.getElementById("lb-img"); img.src = `img/${n}-1400.webp`; img.alt = cap;
+  document.getElementById("lb-cap").textContent = cap;
+  document.getElementById("lb-count").textContent = `${current + 1} / ${PHOTOS.length}`;
+}
+function openLightbox(i) { showSlide(i); lightbox.hidden = false; document.body.style.overflow = "hidden"; document.getElementById("lb-close").focus(); }
+function closeLightbox() { lightbox.hidden = true; document.body.style.overflow = ""; }
+document.getElementById("see-all").addEventListener("click", () => openLightbox(0));
+document.getElementById("lb-close").addEventListener("click", closeLightbox);
+document.getElementById("lb-prev").addEventListener("click", () => showSlide(current - 1));
+document.getElementById("lb-next").addEventListener("click", () => showSlide(current + 1));
+lightbox.addEventListener("click", e => { if (e.target === lightbox || e.target.classList.contains("lb-stage")) closeLightbox(); });
+document.addEventListener("keydown", e => { if (lightbox.hidden) return;
+  if (e.key === "Escape") closeLightbox(); if (e.key === "ArrowLeft") showSlide(current - 1); if (e.key === "ArrowRight") showSlide(current + 1); });
+let tx = null;
+lightbox.addEventListener("touchstart", e => { tx = e.touches[0].clientX; }, { passive: true });
+lightbox.addEventListener("touchend", e => { if (tx === null) return; const dx = e.changedTouches[0].clientX - tx; if (Math.abs(dx) > 50) showSlide(current + (dx < 0 ? 1 : -1)); tx = null; }, { passive: true });
+
+/* ===== PHONE COPY ===== */
+document.getElementById("copy-phone").addEventListener("click", async () => {
+  const btn = document.getElementById("copy-phone");
+  try { await navigator.clipboard.writeText("+52 33 3749 1657"); }
+  catch (e) { const r = document.createRange(); r.selectNodeContents(document.querySelector(".contact-line .num")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  btn.textContent = lang === "es" ? "Copiado ✓" : "Copied ✓"; setTimeout(() => { btn.textContent = lang === "es" ? "Copiar" : "Copy"; }, 1800);
+});
+
+/* ===== STICKY CTA appears once the hero scrolls out ===== */
+if ("IntersectionObserver" in window) {
+  new IntersectionObserver(([e]) => { const on = !e.isIntersecting; document.getElementById("sticky").classList.toggle("on", on); document.getElementById("pill").classList.toggle("on", on); }, { threshold: 0.05 })
+    .observe(document.getElementById("hero"));
+} else { document.getElementById("sticky").classList.add("on"); document.getElementById("pill").classList.add("on"); }
+
+/* ===== REVEAL: only blocks below the fold start hidden, so the first frame is complete ===== */
+if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -8% 0px" });
+  document.querySelectorAll(".reveal").forEach(el => { if (el.getBoundingClientRect().top > innerHeight) { el.classList.add("pre"); io.observe(el); } });
+}
+
+setLang(lang);
+</script>
+</body>
+</html>
