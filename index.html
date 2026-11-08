@@ -25,7 +25,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Cabaña Los Balcones · Cabaña con balcones al bosque en Mazamitla, Jalisco</title>
-<meta name="description" content="Cabañas en Mazamitla: Cabaña Los Balcones, nueva, para 12 personas, con balcones entre los pinos, chimenea con leña incluida y palapa con asador, a 5 minutos del centro.">
+<meta name="description" content="Cabañas en Mazamitla: Cabaña Los Balcones, nueva, para 12 personas, con balcones entre los pinos, chimenea de leña y palapa con asador, a 5 minutos del centro.">
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta property="og:title" content="Cabaña Los Balcones · Mazamitla, Jalisco">
 <meta property="og:description" content="Balcones sobre el bosque de pinos, a 5 minutos de la plaza de Mazamitla. Cabaña nueva para 12 personas.">
@@ -42,7 +42,7 @@
   "@context": "https://schema.org",
   "@type": "LodgingBusiness",
   "name": "Cabaña Los Balcones",
-  "description": "Cabaña nueva en Mazamitla, Jalisco, para 12 personas: 4 recámaras, 2 baños, 2 salas, balcones entre los pinos, chimenea con leña incluida y palapa con asador y fogatero, a 5 minutos del centro.",
+  "description": "Cabaña nueva en Mazamitla, Jalisco, para 12 personas: 4 recámaras, 2 baños, 2 salas, balcones entre los pinos, chimenea de leña y palapa con asador y fogatero, a 5 minutos del centro.",
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "Paseo Vistas de Mazamitla, Lote 8, Fraccionamiento Vistas de Mazamitla",
@@ -60,7 +60,7 @@
   "availableLanguage": ["es", "en"],
   "amenityFeature": [
     {"@type":"LocationFeatureSpecification","name":"Balcones con vista al bosque","value":true},
-    {"@type":"LocationFeatureSpecification","name":"Chimenea de leña (leña incluida)","value":true},
+    {"@type":"LocationFeatureSpecification","name":"Chimenea de leña (incluye un tercio de leña)","value":true},
     {"@type":"LocationFeatureSpecification","name":"Palapa con asador y fogatero","value":true},
     {"@type":"LocationFeatureSpecification","name":"Wi-Fi","value":true},
     {"@type":"LocationFeatureSpecification","name":"Cocina equipada","value":true},
@@ -154,7 +154,6 @@ button{font:inherit;color:inherit}
 .stats li{display:flex;align-items:baseline;gap:8px;padding:4px 18px;font-variant-numeric:tabular-nums}
 .stats li b{font-family:var(--display);font-weight:600;font-size:1.35rem;line-height:1}
 .stats li span{font-size:.9rem;color:var(--muted)}
-.stats li.leña b{color:var(--accent)}
 
 /* ---------- gallery ---------- */
 .gallery{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:minmax(0,1fr);gap:10px}
@@ -284,12 +283,11 @@ footer a{text-decoration:none}
   .hero .btn:hover{background:transparent;color:var(--accent);border-color:var(--accent)}
   .hero .textlink{color:var(--ink);border-color:var(--hair)}
   .hero .textlink:hover{color:var(--accent);border-color:var(--accent)}
-  /* phone stat strip: 2 clean columns, leña on its own row */
+  /* phone stat strip: 2 clean columns */
   .stats ul{display:grid;grid-template-columns:1fr 1fr;gap:0;padding-block:0}
   .stats li{padding:14px 12px;border-bottom:1px solid var(--hair);width:auto}
   .stats li:nth-child(odd){border-right:1px solid var(--hair)}
-  .stats li.leña{grid-column:1 / -1;border-right:0;border-bottom:0;justify-content:center;background:var(--surface)}
-  .stats li.leña b{font-size:1.1rem;letter-spacing:.02em}
+  .stats li:nth-last-child(-n+2){border-bottom:0}
   .gallery{grid-template-columns:1fr 1fr}
   .tile.big{grid-column:span 2;grid-row:auto;aspect-ratio:3/2}
   .walk article{grid-template-columns:1fr;gap:6px}
@@ -354,7 +352,6 @@ footer a{text-decoration:none}
       <li><b>4</b><span data-es="recámaras" data-en="bedrooms">recámaras</span></li>
       <li><b>2</b><span data-es="baños completos" data-en="full bathrooms">baños completos</span></li>
       <li><b>5 min</b><span data-es="al centro" data-en="to downtown">al centro</span></li>
-      <li class="leña"><b data-es="Leña incluida" data-en="Firewood included">Leña incluida</b></li>
       <!-- TODO-PRICE: <li><b>desde $X MXN</b><span data-es="por noche" data-en="per night">por noche</span></li> -->
     </ul>
   </div>
@@ -388,13 +385,13 @@ footer a{text-decoration:none}
       </article>
       <article>
         <p class="label" data-es="Tarde" data-en="Afternoon">Tarde</p>
-        <p data-es="El pueblo está a cinco minutos: la plaza, la parroquia, un rompope en el centro. De regreso, carne y carbón para el asador. La cocina está equipada para cocinar para doce sin pelearse por el espacio."
-           data-en="Town is five minutes away: the plaza, the parish church, a rompope downtown. On the way back, meat and charcoal for the grill. The kitchen is equipped to cook for twelve without fighting for counter space.">El pueblo está a cinco minutos: la plaza, la parroquia, un rompope en el centro. De regreso, carne y carbón para el asador. La cocina está equipada para cocinar para doce sin pelearse por el espacio.</p>
+        <p data-es="El pueblo está a cinco minutos: la plaza, la parroquia, un rompope en el centro. De regreso, carne y carbón para el asador. La cocina está equipada para cocinar para los doce."
+           data-en="Town is five minutes away: the plaza, the parish church, a rompope downtown. On the way back, meat and charcoal for the grill. The kitchen is equipped to cook for all twelve.">El pueblo está a cinco minutos: la plaza, la parroquia, un rompope en el centro. De regreso, carne y carbón para el asador. La cocina está equipada para cocinar para los doce.</p>
       </article>
       <article>
         <p class="label" data-es="Noche" data-en="Evening">Noche</p>
-        <p data-es="Carne asada en la palapa y el fogatero encendido bajo las estrellas. Adentro, la chimenea con leña incluida, dos salas para que la familia se reparta sin que nadie quede fuera, y dos televisiones para cuando ganen los niños."
-           data-en="Carne asada under the palapa and the fire pit lit beneath the stars. Inside, the fireplace with firewood included, two living rooms so the whole family fits without anyone left out, and two TVs for when the kids win the argument.">Carne asada en la palapa y el fogatero encendido bajo las estrellas. Adentro, la chimenea con leña incluida, dos salas para que la familia se reparta sin que nadie quede fuera, y dos televisiones para cuando ganen los niños.</p>
+        <p data-es="Carne asada en la palapa y el fogatero encendido bajo las estrellas. Adentro, la chimenea encendida, dos salas para que la familia se reparta sin que nadie quede fuera, y dos televisiones para cuando ganen los niños."
+           data-en="Carne asada under the palapa and the fire pit lit beneath the stars. Inside, the fireplace lit, two living rooms so the whole family fits without anyone left out, and two TVs for when the kids win the argument.">Carne asada en la palapa y el fogatero encendido bajo las estrellas. Adentro, la chimenea encendida, dos salas para que la familia se reparta sin que nadie quede fuera, y dos televisiones para cuando ganen los niños.</p>
       </article>
     </div>
 
@@ -414,7 +411,7 @@ footer a{text-decoration:none}
       <div>
         <h3 data-es="Dentro" data-en="Inside">Dentro</h3>
         <ul>
-          <li class="hl"><span data-es="Chimenea de leña — leña incluida" data-en="Wood-burning fireplace — firewood included">Chimenea de leña — leña incluida</span></li>
+          <li class="hl"><span data-es="Chimenea de leña — incluye un tercio de leña; la demás la consigues en el pueblo" data-en="Wood-burning fireplace — one bundle of firewood included; more is sold in town">Chimenea de leña — incluye un tercio de leña; la demás la consigues en el pueblo</span></li>
           <li><span data-es="4 recámaras: principal con cama king, recámara con literas" data-en="4 bedrooms: master with king bed, bunk-bed room">4 recámaras: principal con cama king, recámara con literas</span></li>
           <li><span data-es="2 baños completos" data-en="2 full bathrooms">2 baños completos</span></li>
           <li><span data-es="2 salas amplias, una en planta alta" data-en="2 spacious living rooms, one upstairs">2 salas amplias, una en planta alta</span></li>
@@ -513,7 +510,7 @@ footer a{text-decoration:none}
         </a>
         <div class="contact-line">
           <span data-es="O llámanos:" data-en="Or call us:">O llámanos:</span>
-          <a class="num" href="tel:+523337491657">+52 33 3749 1657</a>
+          <a class="num" href="tel:+523337491657">33 3749 1657</a>
           <button type="button" class="copy-btn" id="copy-phone" data-es="Copiar" data-en="Copy">Copiar</button>
         </div>
         <a class="btn btn-outline js-airbnb" href="#" target="_blank" rel="noopener"><span data-es="Ver en Airbnb" data-en="View on Airbnb">Ver en Airbnb</span></a>
@@ -535,7 +532,7 @@ footer a{text-decoration:none}
       <span data-es="Reservar por WhatsApp" data-en="Reserve on WhatsApp">Reservar por WhatsApp</span>
     </a>
     <div class="links">
-      <a class="textlink" href="tel:+523337491657">+52 33 3749 1657</a>
+      <a class="textlink" href="tel:+523337491657">33 3749 1657</a>
       <a class="textlink js-airbnb" href="#" target="_blank" rel="noopener" data-es="Ver en Airbnb ↗" data-en="View on Airbnb ↗">Ver en Airbnb ↗</a>
     </div>
   </div>
@@ -545,7 +542,7 @@ footer a{text-decoration:none}
 
 <footer>
   <div class="wrap">
-    <span>Cabaña Los Balcones · Fracc. Vistas de Mazamitla · Mazamitla, Jalisco · <a href="tel:+523337491657">+52 33 3749 1657</a> · © 2026</span>
+    <span>Cabaña Los Balcones · Fracc. Vistas de Mazamitla · Mazamitla, Jalisco · <a href="tel:+523337491657">33 3749 1657</a> · © 2026</span>
     <div class="lang" role="group" aria-label="Idioma / Language">
       <button type="button" data-lang="es" aria-pressed="true">Español</button>
       <span class="sep" aria-hidden="true">|</span>
@@ -584,7 +581,7 @@ const AIRBNB_URL = "";               // TODO-AIRBNB: paste the listing URL, e.g.
 const PHOTOS = [
   ["exterior-palapa",       "La palapa con asador y fogatero, al atardecer. Los pinos son los del terreno.", "The covered patio with grill and fire pit, at sunset. The pines are on the property."],
   ["loft-lounge",           "Segunda sala, planta alta. La puerta da al balcón entre las ramas.", "Second living room, upstairs. The door opens onto the balcony among the branches."],
-  ["living-room-fireplace", "Sala principal con la chimenea de ladrillo. La leña va por nuestra cuenta.", "Main living room with the brick fireplace. Firewood is on us."],
+  ["living-room-fireplace", "Sala principal con la chimenea de ladrillo. Incluye un tercio de leña para la primera noche.", "Main living room with the brick fireplace. One bundle of firewood is included for the first night."],
   ["master-bedroom",        "Recámara principal, cama king, cabecera tallada en madera.", "Master bedroom, king bed, hand-carved wooden headboard."],
   ["dining-room",           "Comedor para ocho, con la cocina y la entrada a un lado.", "Dining table for eight, with the kitchen and the front door beside it."],
   ["kitchen",               "Cocina equipada: estufa de gas de seis quemadores, refrigerador, microondas, cafetera.", "Equipped kitchen: six-burner gas range, fridge, microwave, coffee maker."],
@@ -671,7 +668,7 @@ lightbox.addEventListener("touchend", e => { if (tx === null) return; const dx =
 /* ===== PHONE COPY ===== */
 document.getElementById("copy-phone").addEventListener("click", async () => {
   const btn = document.getElementById("copy-phone");
-  try { await navigator.clipboard.writeText("+52 33 3749 1657"); }
+  try { await navigator.clipboard.writeText("33 3749 1657"); }
   catch (e) { const r = document.createRange(); r.selectNodeContents(document.querySelector(".contact-line .num")); const s = getSelection(); s.removeAllRanges(); s.addRange(r); }
   btn.textContent = lang === "es" ? "Copiado ✓" : "Copied ✓"; setTimeout(() => { btn.textContent = lang === "es" ? "Copiar" : "Copy"; }, 1800);
 });
